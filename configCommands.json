@@ -36,6 +36,7 @@
     }
   },
   "commandUnload": [
-    "alldl.js"
+    "alldl.js",
+    "emoji_voice.js"
   ]
 }

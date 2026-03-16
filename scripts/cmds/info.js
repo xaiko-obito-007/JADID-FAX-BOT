@@ -35,7 +35,7 @@ module.exports = {
 
     // GIF / VIDEO URL
     const images = [
-      "https://files.catbox.moe/zwumwq.gif"
+      "https://i.ibb.co/YBJ3Tzd5/image0.gif"
     ];
     const image = images[Math.floor(Math.random() * images.length)];
 
