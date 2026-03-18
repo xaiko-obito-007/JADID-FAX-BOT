@@ -7,7 +7,7 @@ module.exports = {
     name: "mj",
     version: "5.1",
     role: 2,
-    author: "Ariyan",
+    author: "S AY EM",
     countDown: 60,
     category: "AI"
   },
