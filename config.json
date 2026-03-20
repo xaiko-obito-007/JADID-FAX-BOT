@@ -20,22 +20,22 @@
   },
   "adminBot": [
     "61588451054097",
-    "61583672622910",
-    "61582626822961",
-    "61582251488628"
+    "",
+    "",
+    "61587649917001"
   ],
   "premiumUsers": [
-    "61588451054097"
+    "61587649917001"
   ],
   "devUsers": [
-    "61588451054097"
+    "61587649917001"
   ],
   "notes_premiumUsers": "List of user IDs with premium access (role 3)",
   "notes_devUsers": "List of developer IDs with full access (role 4)",
   "whiteListMode": {
     "enable": false,
     "whiteListIds": [
-      "61588451054097",
+      "61587649917001",
       "61588451054097"
     ],
     "notes": "if you enable this feature, only the ids in the whiteListIds list can use the bot"
@@ -48,7 +48,7 @@
   },
   "database": {
     "type": "mongodb",
-    "uriMongodb": "mongodb+srv://video09:video404video909@sayem50.pqzsqng.mongodb.net/mydbname?retryWrites=true&w=majority",
+    "uriMongodb": "mongodb+srv://video09:Umm143@sayem50.pqzsqng.mongodb.net/mydbname?retryWrites=true&w=majority",
     "autoSyncWhenStart": false,
     "autoRefreshThreadInfoFirstTime": true,
     "notes": "(1) type selects 'json' or 'sqlite' or 'mongodb'. If you choose mongodb, enter uri connect mongodb in the uriMongodb section, instructions to get uri connect mongodb at: https://youtu.be/z1f9urHW5xY. I recommend using 'mongodb' or 'sqlite', json is not recommended because it is not stable. (2) when you set autoSyncWhenStart to true, the bot will automatically synchronize the data in the database when starting the bot, this will make the bot start slower. (3) when you set autoRefreshThreadInfoFirstTime to true, the bot will automatically refresh the thread information when get first message from the thread since starting the bot"
