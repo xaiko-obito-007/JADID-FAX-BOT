@@ -22,10 +22,10 @@ module.exports = {
   onStart: async function ({ message }) {
 
     // OWNER INFO
-    const ownerName = "Sayem Ahmmed";
-    const ownerAge = "19+";
-    const ownerFB = "https://www.facebook.com/sayem.ahmmed.404";
-    const ownerNumber = "+8801735624750";
+    const ownerName = "JA DI D";
+    const ownerAge = "18+";
+    const ownerFB = "https://www.facebook.com/obito.bbz.009";
+    const ownerNumber = "+8801304594135";
     const status = "Active";
 
     // BOT INFO
@@ -35,7 +35,7 @@ module.exports = {
 
     // GIF / VIDEO URL
     const images = [
-      "https://i.ibb.co/YBJ3Tzd5/image0.gif"
+      "https://i.imgur.com/rraLC6E.mp4"
     ];
     const image = images[Math.floor(Math.random() * images.length)];
 
@@ -71,7 +71,7 @@ module.exports = {
 ⭓ 🌐 𝗙𝗮𝗰𝗲𝗯𝗼𝗼𝗸  : 『 ${ownerFB} 』
 
 ───────────────
-🔧 Fix by Sayem Ahmmed
+🕷️ OWNER OF JADID
 ╚══════════════════════════╝
 `,
       attachment: await global.utils.getStreamFromURL(image)
