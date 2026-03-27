@@ -5,7 +5,7 @@ const baseApiUrl = async () => {
 
 module.exports.config = {
     name: "bby",
-    aliases: ["baby", "maowa", "mahu","arafa"],
+    aliases: ["baby", "bbe", "babe"," bot chan"],
     version: "6.9.0",
     author: "dipto",
     countDown: 0,
@@ -213,7 +213,7 @@ module.exports.onChat = async ({
                 await api.sendMessage(randomReplies[Math.floor(Math.random() * randomReplies.length)], event.threadID, (error, info) => {
                     if (!info) message.reply("info obj not found")
                     global.GoatBot.onReply.set(info.messageID, {
-                        commandName: this.config.name,
+                        commandName: this.config.nme,
                         type: "reply",
                         messageID: info.messageID,
                         author: event.senderID
@@ -234,4 +234,4 @@ module.exports.onChat = async ({
     } catch (err) {
         return api.sendMessage(`Error: ${err.message}`, event.threadID, event.messageID);
     }
-const
+};
