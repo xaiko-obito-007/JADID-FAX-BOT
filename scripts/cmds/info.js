@@ -35,7 +35,7 @@ module.exports = {
 
     // GIF / VIDEO URL
     const images = [
-      "https://i.imgur.com/rraLC6E.mp4"
+      "https://i.imgur.com/cS3uWNc.mp4"
     ];
     const image = images[Math.floor(Math.random() * images.length)];
 
@@ -71,7 +71,7 @@ module.exports = {
 ⭓ 🌐 𝗙𝗮𝗰𝗲𝗯𝗼𝗼𝗸  : 『 ${ownerFB} 』
 
 ───────────────
-🕷️ OWNER OF JADID
+🔧 Fix by Sayem Ahmmed
 ╚══════════════════════════╝
 `,
       attachment: await global.utils.getStreamFromURL(image)
