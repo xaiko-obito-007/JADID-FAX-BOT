@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://i.ibb.co/RQ28H2p/banner.png" alt="banner" width="100%">
+  <img src="https://i.imgur.com/rBzBC0r.jpeg" alt="banner" width="100%">
   
   <h1>
     <img src="./dashboard/images/logo-non-bg.png" width="30px" style="vertical-align: middle">
