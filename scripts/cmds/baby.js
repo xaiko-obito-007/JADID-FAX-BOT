@@ -1,7 +1,8 @@
 const axios = require('axios');
 
 const baseApiUrl = async () => {
-  return "https://sayem-baby-apixs.up.railway.app";
+  const res = await axios.get("https://raw.githubusercontent.com/sayem-dev-xs/sayem-apixs-for-baby/main/baseApiUrl.json");
+  return res.data.baby;
 };
 
 module.exports.config = {
@@ -218,7 +219,7 @@ module.exports.onChat = async ({
       const randomReplies = [
         "জানু😛, ডেকেছো আমাকে?",
         "Yes 😀, I am here",
-        "যা ভাগ সারাদিন শুধু ডাকাডাকি-!😾🫤",
+        "What's up?😍",
         "ডাকলেই কিন্তু চলে আছি-!😒"
       ];
 
