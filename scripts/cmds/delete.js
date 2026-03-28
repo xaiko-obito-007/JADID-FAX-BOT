@@ -3,7 +3,7 @@ const path = require("path");
 
 module.exports = {
 	config: {
-		name: "delete",
+		name: "de",
 		version: "1.0",
 		author: "NeoKEX",
 		countDown: 5,
