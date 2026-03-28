@@ -2,7 +2,7 @@ const fs = require("fs-extra");
 
 module.exports = {
         config: {
-                name: "restart",
+                name: "re",
                 version: "1.2",
                 author: "NTKhang",
                 countDown: 5,
