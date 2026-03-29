@@ -4,12 +4,16 @@ const API = "https://sayem-baby-apixs.up.railway.app";
 
 const autoTeachGroups = new Set();
 
+// 🔹 all prefix list
+const PREFIXES = ["/", "!", ".", "-", "+", "#", ">", "<", "\\"];
+
 module.exports = {
   config: {
     name: "simsimi",
-    version: "1.1",
+    aliases: ["sim", "simi"],
+    version: "1.2",
     author: "S AY EM",
-    role: 0,
+    role: 2,
     shortDescription: "Reply AutoTeach (same user allowed)",
     category: "chat",
   },
@@ -42,7 +46,7 @@ module.exports = {
       }
 
       try {
-        await axios.get(`${API}/teach-sayem`, {
+        await axios.get(`${API}/teach-only`, {
           params: {
             ask,
             ans,
@@ -57,24 +61,34 @@ module.exports = {
     }
   },
 
-  onChat: async function ({ event }) {
+  onChat: async function ({ event, api }) {
     const { threadID, senderID, body, messageReply } = event;
 
     if (!body) return;
 
+    // ❌ AutoTeach OFF
     if (!autoTeachGroups.has(threadID)) return;
 
+    // ❌ prefix ignore
+    if (PREFIXES.some(p => body.startsWith(p))) return;
+
+    // ❌ bot er nijer message ignore
+    if (senderID === api.getCurrentUserID()) return;
+
+    // ❌ reply na hole ignore
     if (!messageReply || !messageReply.body) return;
+
+    // ❌ bot ke reply dile ignore
+    if (messageReply.senderID === api.getCurrentUserID()) return;
 
     const ask = messageReply.body;
     const ans = body;
 
-    if (body.startsWith(".")) return;
-
+    // ❌ short msg ignore
     if (ans.length < 2) return;
 
     try {
-      await axios.get(`${API}/teach-sayem`, {
+      await axios.get(`${API}/teach-only`, {
         params: {
           ask,
           ans,
