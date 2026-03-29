@@ -36,6 +36,7 @@
     "enable": false,
     "whiteListIds": [
       "61588585228461",
+      "61588585228461"
     ],
     "notes": "if you enable this feature, only the ids in the whiteListIds list can use the bot"
   },
@@ -143,6 +144,6 @@
     "selfListenEvent": true,
     "autoMarkDelivery": false,
     "autoReconnect": false,
-    "notes": "Document here: https://github.com/NeoKEX/fca-neokex/README.md"
+    "notes": "Document here: https://github.com/sayem-dev-xs/fca-xs/README.md"
   }
 }
