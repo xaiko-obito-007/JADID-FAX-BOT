@@ -129,7 +129,7 @@ module.exports = {
         const lovePercent = Math.floor(Math.random() * 31) + 70;
         api.sendMessage(
           {
-            body: `🎉 𝗣𝗮𝗶𝗿 𝗦𝘂𝗰𝗰𝗲𝘀𝘀𝗳𝘂𝗹!\n👩 ${senderName}\n👨 ${matchName}\n💘 𝗟𝗼𝘃𝗲 𝗣𝗲𝗿𝗰𝗲𝗻𝘁𝗮𝗴𝗲: ${lovePercent}% 💙\n💌 Wish you two endless happiness!`,
+            body: `🎉 𝗣𝗮𝗶𝗿 𝗦𝘂𝗰𝗰𝗲𝘀𝘀𝗳𝘂𝗹!\n• ${senderName}\n• ${matchName}\n💘 𝗟𝗼𝘃𝗲 𝗣𝗲𝗿𝗰𝗲𝗻𝘁𝗮𝗴𝗲: ${lovePercent}% 💙\n💌 Wish you two endless happiness!`,
             attachment: fs.createReadStream(outputPath),
           },
           event.threadID,
