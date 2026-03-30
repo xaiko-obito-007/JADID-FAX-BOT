@@ -15,7 +15,7 @@ module.exports.config = {
   description: "update simsim api by Sayem",
   category: "CHARTING",
   guide: {
-    en: "{pn} [anyMessage] OR\nteach [YourMessage] - [Reply1], [Reply2], [Reply3]... OR\nmsg [YourMessage] OR\nlist OR\nlist all"
+    en: "{pn} [anyMessage] OR\nmsg [YourMessage] OR\nlist OR\nlist all"
   }
 };
 
@@ -41,8 +41,9 @@ module.exports.onStart = async ({
         event.messageID
       );
 
-      global.GoatBot.bbyReply ??= {};
-      global.GoatBot.bbyReply[msg.messageID] = true;
+      global.sayem ??= {};
+      global.sayem.bbyReply ??= {};
+      global.sayem.bbyReply[msg.messageID] = true;
 
       return;
     }
@@ -90,7 +91,7 @@ module.exports.onStart = async ({
         const d = (await axios.get(`${link}/list-xs`)).data;
 
         return api.sendMessage(
-          `❇️ | Total Teach = ${d.total_questions || "api off"}\n♻️ | Total Response = ${d.total_answers || "api off"}`,
+          `❇ | Total Teach = ${d.total_questions || "api off"}\n♻ | Total Response = ${d.total_answers || "api off"}`,
           event.threadID,
           event.messageID
         );
@@ -110,57 +111,15 @@ module.exports.onStart = async ({
       return api.sendMessage(`Message ${fuk} = ${d.respond}`, event.threadID, event.messageID);
     }
 
-    if (args[0] === 'teach') {
-
-      const text = sayem.replace("teach ", "");
-
-      if (!text.includes("-"))
-        return api.sendMessage('❌ | Invalid format!', event.threadID, event.messageID);
-
-      const [ask, answers] = text.split(/\s*-\s*/);
-
-      const replyList = answers.split(",");
-
-      let added = 0;
-      let replyText = "";
-
-      for (let i = 0; i < replyList.length; i++) {
-
-        const ans = replyList[i].trim();
-
-        await axios.get(`${link}/teach-sayem`, {
-          params: {
-            ask: ask.trim(),
-            ans: ans
-          }
-        });
-
-        added++;
-        replyText += `${i + 1}. ${ans}\n`;
-
-      }
-
-      return api.sendMessage(
-`📚 | New Teach Added
-
-❓ Question: ${ask}
-
-💬 Replies Added: ${added}
-
-${replyText}`,
-        event.threadID,
-        event.messageID
-      );
-    }
-
     const d = (await axios.get(`${link}/baby-xs`, {
       params: { ask: sayem }
     })).data;
 
     const msg = await api.sendMessage(d.respond, event.threadID, event.messageID);
 
-    global.GoatBot.bbyReply ??= {};
-    global.GoatBot.bbyReply[msg.messageID] = true;
+    global.sayem ??= {};
+    global.sayem.bbyReply ??= {};
+    global.sayem.bbyReply[msg.messageID] = true;
 
   } catch (e) {
 
@@ -178,15 +137,20 @@ module.exports.onChat = async ({
 
   try {
 
+    const botID = api.getCurrentUserID();
+
+    if (event.senderID == botID) return;
+
     const body = event.body ? event.body.toLowerCase() : "";
+    if (!body) return;
 
     const link = `${await baseApiUrl()}`;
 
-
     if (
       event.messageReply &&
-      global.GoatBot.bbyReply &&
-      global.GoatBot.bbyReply[event.messageReply.messageID]
+      global.sayem &&
+      global.sayem.bbyReply &&
+      global.sayem.bbyReply[event.messageReply.messageID]
     ) {
 
       const a = (await axios.get(`${link}/baby-xs`, {
@@ -199,11 +163,10 @@ module.exports.onChat = async ({
         event.messageID
       );
 
-      global.GoatBot.bbyReply[msg.messageID] = true;
+      global.sayem.bbyReply[msg.messageID] = true;
 
       return;
     }
-
 
     if (
       body.startsWith("baby") ||
@@ -231,8 +194,9 @@ module.exports.onChat = async ({
           event.messageID
         );
 
-        global.GoatBot.bbyReply ??= {};
-        global.GoatBot.bbyReply[msg.messageID] = true;
+        global.sayem ??= {};
+        global.sayem.bbyReply ??= {};
+        global.sayem.bbyReply[msg.messageID] = true;
 
         return;
       }
@@ -247,8 +211,7 @@ module.exports.onChat = async ({
         event.messageID
       );
 
-      global.GoatBot.bbyReply ??= {};
-      global.GoatBot.bbyReply[msg.messageID] = true;
+      global.sayem.bbyReply[msg.messageID] = true;
 
     }
 
