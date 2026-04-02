@@ -1,62 +1,119 @@
-const axios = require('axios');
-const jimp = require("jimp");
-const fs = require("fs")
+const fs = require("fs-extra");
+const Canvas = require("canvas");
+const path = require("path");
+
 module.exports = {
-    config: {
-        name: "marry",
-        aliases: ["marryv4","marryfour"],
-        version: "1.0",
-        author: "\x4c\x45\x41\x52\x4e\x20\x54\x4f\x20\x45\x41\x54\x20\x4c\x45\x41\x52\x4e\x20\x54\x4f\x20\x53\x50\x45\x41\x4b\x20\x42\x55\x54\x20\x44\x4f\x4e\'\x54\x20\x54\x52\x59\x20\x54\x4f\x20\x43\x48\x41\x4e\x47\x45\x20\x54\x48\x45\x20\x43\x52\x45\x44\x49\x54\x20\x41\x4b\x41\x53\x48",//don't change credit otherwise I'm gonna fuck your mom
-        countDown: 5,
-        role: 0,
-        shortDescription: "get a wife",
-        longDescription: "mention your love❗",
-        category: "love",
-        guide: "{pn}"
-    },
+  config: {
+    name: "marry",
+    aliases: ["married", "biya", "engage"], 
+    version: "3.7",
+    author: "xalman",
+    countDown: 5,
+    role: 0,
+    shortDescription: "Propose with custom image",
+    longDescription: "Generate a propose image with avatars perfectly placed over characters’ heads (swapped).",
+    category: "fun",
+    guide: "{pn} @mention"
+  },
 
+  onStart: async function ({ message, event, usersData }) {
+    const mention = Object.keys(event.mentions);
+    if (mention.length === 0)
+      return message.reply("❗ দয়া করে কাউকে mention করো।");
 
+    const senderID = event.senderID;
+    const mentionedID = mention[0];
 
-   onStart: async function({ api, args, message, event, usersData }) {
-          const senderData = await usersData.get(event.senderID);
+    try {
+      // 🧑‍🤝‍🧑 নাম বের করা
+      const nameSender = await usersData.getName(senderID);
+      const nameMentioned = await usersData.getName(mentionedID);
 
-if (!senderData || senderData.money < 500) {
-  return api.sendMessage(
-    "Oy Goribs Cmd use er jonno 500tk lagbe 😾",
-    event.threadID,
-    event.messageID
-  );
-}
+      // 🟢 Avatar লিংক
+      const avatarSender =
+        (await usersData.getAvatarUrl(senderID)) ||
+        `https://graph.facebook.com/${senderID}/picture?width=512&height=512`;
+      const avatarMentioned =
+        (await usersData.getAvatarUrl(mentionedID)) ||
+        `https://graph.facebook.com/${mentionedID}/picture?width=512&height=512`;
 
-// Deduct 500 money
-await usersData.set(event.senderID, {
-  money: senderData.money - 500
-});
-        const mention = Object.keys(event.mentions);
-      if(mention.length == 0) return message.reply("Please mention someone❗");
-else if(mention.length == 1){
-const one = event.senderID, two = mention[0];
-                bal(one, two).then(ptth => { message.reply({ body: "got married 😍", attachment: fs.createReadStream(ptth) }) })
-} else{
- const one = mention[1], two = mention[0];
-            bal(one, two).then(ptth => { message.reply({ body: "got married 😍", attachment: fs.createReadStream(ptth) }) })
-}
+      // 🖼️ ছবি লোড
+      const [avatarImgSender, avatarImgMentioned, bg] = await Promise.all([
+        Canvas.loadImage(avatarSender),
+        Canvas.loadImage(avatarMentioned),
+        Canvas.loadImage("https://i.postimg.cc/VvjW9DwJ/images-8.jpg")
+      ]);
+
+      // 🎨 ক্যানভাস সেটআপ
+      const canvasWidth = 1280;
+      const canvasHeight = 1280;
+      const canvas = Canvas.createCanvas(canvasWidth, canvasHeight);
+      const ctx = canvas.getContext("2d");
+
+      // ব্যাকগ্রাউন্ড আঁকা
+      ctx.drawImage(bg, 0, 0, canvasWidth, canvasHeight);
+
+      // 👥 Avatar সেটিং
+      const avatarSize = Math.floor(canvasWidth * 0.11); // ছোট আকার
+      const girlHead = { x: 470, y: 310 }; // বাম চরিত্র
+      const boyHead = { x: 690, y: 200 };  // ডান চরিত্র
+
+      // 💙 Mentioned user avatar (left side)
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(
+        girlHead.x + avatarSize / 2,
+        girlHead.y + avatarSize / 2,
+        avatarSize / 2,
+        0,
+        Math.PI * 2
+      );
+      ctx.clip();
+      ctx.drawImage(avatarImgMentioned, girlHead.x, girlHead.y, avatarSize, avatarSize);
+      ctx.restore();
+
+      // ❤️ Sender avatar (right side)
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(
+        boyHead.x + avatarSize / 2,
+        boyHead.y + avatarSize / 2,
+        avatarSize / 2,
+        0,
+        Math.PI * 2
+      );
+      ctx.clip();
+      ctx.drawImage(avatarImgSender, boyHead.x, boyHead.y, avatarSize, avatarSize);
+      ctx.restore();
+
+      // 💾 ছবি সেভ
+      const tmpDir = path.join(__dirname, "tmp");
+      await fs.ensureDir(tmpDir);
+      const imgPath = path.join(tmpDir, `${senderID}_${mentionedID}_marry.png`);
+      await fs.writeFile(imgPath, canvas.toBuffer("image/png"));
+
+      // 💬 টেক্সট তৈরি
+      const text =
+        senderID === mentionedID
+          ? "নিজেকে নিজেকে বিয়ে করবে ? 😂❤️"
+          : `💍 ${nameSender} এর বিয়ে${nameMentioned}- এর সাথে 🥰❤️`;
+
+      // ✉️ পাঠানো
+      await message.reply(
+        {
+          body: text,
+          attachment: fs.createReadStream(imgPath)
+        },
+        () => fs.unlink(imgPath).catch(() => {}) // ফাইল ডিলিট
+      );
+
+      // 🧹 মেমরি ক্লিন
+      canvas.width = canvas.height = 0;
+      global.gc && global.gc();
+
+    } catch (err) {
+      console.error("❌ Error in marry command:", err);
+      message.reply(`⚠️ কোনো সমস্যা হয়েছে!\n${err.message}`);
     }
-
-
+  }
 };
-
-async function bal(one, two) {//credit akash #_#
-
-    let avone = await jimp.read(`https://graph.facebook.com/${one}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`)
-    avone.circle()
-    let avtwo = await jimp.read(`https://graph.facebook.com/${two}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`)
-    avtwo.circle()
-    let pth = "marryv4.png"
-    let img = await jimp.read("https://i.postimg.cc/XN1TcH3L/tumblr-mm9nfpt7w-H1s490t5o1-1280.jpg")
-
-    img.resize(1024, 684).composite(avone.resize(85, 85), 204, 160).composite(avtwo.resize(80, 80), 315, 105);//don't change the credit X-------D
-
-    await img.writeAsync(pth)
-    return pth
-}
