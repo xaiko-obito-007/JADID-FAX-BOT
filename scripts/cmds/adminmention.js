@@ -13,7 +13,7 @@ module.exports = {
   onStart: async function () {},
 
   onChat: async function ({ event, message }) {
-    const adminIDs = ["61588585228461", "61551820528583",
+    const adminIDs = ["61567590682406", "61551820528583",
 "100073972493628"].map(String);
 
     // Skip if sender is admin
@@ -29,6 +29,7 @@ module.exports = {
     const REPLIES = [
       " বস কে মেনশন দিলে তোর নানির খালি ঘর 😩🐸",
       "বস এক আবাল তুমারে ডাকতেছে 😂😏",
+      " বস কে মেনশন না দিয়ে বউ দে"‚
       " বুকাচুদা তুই মেনশন দিবি না আমার বস রে 🥹",
       "মেনশন দিছস আর বেচে যাবি? দারা বলতাছি 😠",
       "Boss এখন বিজি আছে 😌🥱"
