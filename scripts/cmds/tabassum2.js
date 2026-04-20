@@ -1,6 +1,6 @@
 module.exports = {
     config: {
-        name: "tabassum",
+        name: "xr tashu",
         version: "1.0",
         author: "Jadid", //** original author fb I'd : https://C.E.O.NOBITA.2021 **//
         countDown: 5,
@@ -15,6 +15,6 @@ onChat: async function({
     message,
     getLang
 }) {
-    if (event.body && event.body.toLowerCase() == "tabassum") return message.reply("pi pi pi chupiii 🐿");
+    if (event.body && event.body.toLowerCase() == "xr tashu") return message.reply("she's Jadid wify -!!🥹💋");
 }
 };
