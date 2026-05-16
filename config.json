@@ -13,7 +13,7 @@
   "language": "en",
   "notesLanguage": "change to your language with ISO 639-1 code, available languages: vi (Vietnamese), en (English)",
   "nickNameBot": "Ɲ ᥆ ꪎ ꪎ Y",
-  "prefix": "!",
+  "prefix": ".",
   "api": "https://api.noobs-api.rf.gd/dipto",
   "approval": false,
   "reactBy": {
@@ -31,18 +31,20 @@
     "ignoreCommand": []
   },
   "adminBot": [
-    "61567590682406"‚
-    "100073972493628"
+    "61567590682406",
+    "61579497520002",
+    "0",
+    "100073972493628",
+    "61585738257999"
   ],
   "mainAdmin": [
-    "61567590682406"‚
-    "100073972493628"
+    "61567590682406"
   ],
   "whiteListMode": {
     "enable": false,
     "whiteListIds": [
       "61567590682406",
-      "100073972493628"
+      "61567590682406"
     ],
     "notes": "if you enable this feature, only the ids in the whiteListIds list can use the bot"
   },
@@ -55,7 +57,7 @@
     "how_it_work": "if you enable both whiteListMode and whiteListModeThread, the system will check if the user is in whiteListIds, then check if the thread is in whiteListThreadIds, if one of the conditions is true, the user can use the bot"
   },
   "database": {
-    "type": "sqlite",
+    "type": "mongodb",
     "uriMongodb": "mongodb+srv://xaiko-jadid:obito_bbz_007@jadid.bab3e7n.mongodb.net/",
     "autoSyncWhenStart": false,
     "autoRefreshThreadInfoFirstTime": true,
@@ -70,7 +72,7 @@
       "refreshToken": "1//04cWW09MPjCJ_CgYIARAAGAQSNwF-L9Ire-jJJEWxsxMhSN7TIWIxasWAgO185qwOrVpFwcCVWGhdPknecew-nRUQk9GAnLG7bXw"
     },
     "gRecaptcha": {
-     "siteKey": "",
+      "siteKey": "",
       "secretKey": ""
     }
   },
